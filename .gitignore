@@ -28,6 +28,7 @@ cython_debug/
 
 # project
 .env
+.venv/
 
 # environment (ignore one, use the other)
 # environment.yml

@@ -10,5 +10,14 @@ def fibonacci(n):
     else:
         return fibonacci(n - 1) + fibonacci(n - 2)
     
-print(fibonacci(9))
+
+def to_binary(n):
+    bin_string = ''
+    for power in range(8, 0, -1):
+        # Add a 1 if n is divisible by 2, else add 0
+        if n // 2**power:
+            bin_string += '1'
+
+        else:
+            bin_string += '0'
 
