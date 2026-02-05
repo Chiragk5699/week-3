@@ -1,5 +1,6 @@
 import seaborn as sns
 import pandas as pd
+import numpy as np
 
 
 def fibonacci(n):
@@ -24,11 +25,33 @@ def fibonacci(n):
     
 
 def to_binary(n):
-    bin_string = ''
-    for power in range(8, 0, -1):
-        # Add a 1 if n is divisible by 2, else add 0
-        if n // 2**power:
-            bin_string += '1'
+    """ Finds the binary representation of an integer.
 
+    Args:
+        n (int): an integer to represent in binary
+
+    Returns:
+        str: the binary representation of n
+    """
+
+    # We will build the string one digit at a time
+    bin_string = ''
+
+    # Find the largest power of 2 (and therefore digit) of the number
+    max_power = int(np.log2(n))
+
+    # Check if n contains each power of 2 decreasing to 1
+    for power in range(max_power, -1, -1):
+        # If it contains that power, add a 1 to the string
+        # and subtract the power from n
+        if n >= 2**power:
+            bin_string += '1'
+            n -= 2**power
+
+        # Otherwise, add 0 to the string
         else:
-            bin_string += '0'
+            bin_string += '0' 
+    
+    return bin_string
+
+print(to_binary(2))
