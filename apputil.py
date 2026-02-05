@@ -53,4 +53,4 @@ def to_binary(n):
     # Replace the 0s in string a with string b, aligning them on the right
     a_len = len(bin_string_a)
     b_len = len(bin_string_b)
-    return bin_string_a[0:a_len - b_len] + bin_string_b
+    return bin_string_a[:a_len - b_len] + bin_string_b
