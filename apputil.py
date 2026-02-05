@@ -25,7 +25,7 @@ def fibonacci(n):
     
 
 def to_binary(n):
-    """ Finds the binary representation of an integer.
+    """ Finds the binary representation of an integer using recursion.
 
     Args:
         n (int): an integer to represent in binary
@@ -34,24 +34,23 @@ def to_binary(n):
         str: the binary representation of n
     """
 
-    # We will build the string one digit at a time
-    bin_string = ''
+    # The base case will be when we have one digit of binary left
+    if n < 2:
+        return '1' if n == 1 else '0'
 
-    # Find the largest power of 2 (and therefore digit) of the number
+    # Otherwise, find the largest power of 2 that n contains
     max_power = int(np.log2(n))
 
-    # Check if n contains each power of 2 decreasing to 1
-    for power in range(max_power, -1, -1):
-        # If it contains that power, add a 1 to the string
-        # and subtract the power from n
-        if n >= 2**power:
-            bin_string += '1'
-            n -= 2**power
+    # Create a string representing that number in binary
+    # (the padding with 0s will allow us to keep track of
+    # 0 digits across the recursion. Otherwise, we would
+    # only see 1s and never 0s)
+    bin_string_a = '1' + '0' * (max_power)
 
-        # Otherwise, add 0 to the string
-        else:
-            bin_string += '0' 
-    
-    return bin_string
+    # Find the binary string for the smaller digits
+    bin_string_b = to_binary(n - 2**max_power)
 
-print(to_binary(2))
+    # Replace the 0s in string a with string b, aligning them on the right
+    a_len = len(bin_string_a)
+    b_len = len(bin_string_b)
+    return bin_string_a[0:a_len - b_len] + bin_string_b
