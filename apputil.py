@@ -68,6 +68,13 @@ def task_1():
     """
     return list(df_bellevue.isna().sum().sort_values().index)
 
+print(df_bellevue['gender'].unique())
+
+print(df_bellevue)
 
 def task_2():
-    pass
+    # First create a column for the year
+    df_bellevue['datetime'] = pd.to_datetime(df_bellevue['date_in'])
+    return df_bellevue.groupby(df_bellevue['datetime'].dt.year)['last_name'].count()
+
+print(task_2())
