@@ -54,3 +54,20 @@ def to_binary(n):
     a_len = len(bin_string_a)
     b_len = len(bin_string_b)
     return bin_string_a[:a_len - b_len] + bin_string_b
+
+# Get the data we need for the next functions
+url = 'https://github.com/melaniewalsh/Intro-Cultural-Analytics/raw/master/book/data/bellevue_almshouse_modified.csv'
+df_bellevue = pd.read_csv(url)
+
+def task_1():
+    """ Returns a list of the column names sorted by the number of 
+        missing items in ascending order.
+
+    Returns:
+        list: the list of column names
+    """
+    return list(df_bellevue.isna().sum().sort_values().index)
+
+
+def task_2():
+    pass
