@@ -70,7 +70,14 @@ def task_1():
     Returns:
         list: the list of column names
     """
-    return list(df_bellevue.isna().sum().sort_values().index)
+
+    # Filter out the random other characters from gender
+    df_bellevue_copy = df_bellevue.copy()
+    df_bellevue_copy.loc[df_bellevue_copy['gender'] == '?', 'gender'] = np.nan
+    df_bellevue_copy.loc[df_bellevue_copy['gender'] == 'g', 'gender'] = np.nan
+    df_bellevue_copy.loc[df_bellevue_copy['gender'] == 'h', 'gender'] = np.nan
+
+    return list(df_bellevue_copy.isna().sum().sort_values().index)
 
 
 def task_2():
@@ -141,4 +148,4 @@ def fibonacci_memorized(n):
     fibs[n] = newValue
     return newValue
 
-print(task_2())
+print(task_1())
