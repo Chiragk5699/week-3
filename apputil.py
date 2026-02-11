@@ -68,8 +68,6 @@ def task_1():
     """
     return list(df_bellevue.isna().sum().sort_values().index)
 
-print(df_bellevue['gender'].unique())
-
 
 def task_2():
     """ Returns a dataframe showing the total admissions for each year.
@@ -98,5 +96,15 @@ def task_3():
     # I don't know what was meant by 'g' and 'h', so I will include them anyway
     # to preserve the original data as best as possible
     return df_bellevue.groupby('gender')['age'].mean().dropna()
+    
 
-print(task_3())
+def task_4():
+    """ Returns a list of the 5 most common professions.
+
+    Returns:
+        list: the list of professions
+    """
+
+    # The value counts are already sorted by occurrences in descending order,
+    # we just need the first 5
+    return list(df_bellevue['profession'].value_counts()[0:5].index)
