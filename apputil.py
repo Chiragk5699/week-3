@@ -70,11 +70,14 @@ def task_1():
 
 print(df_bellevue['gender'].unique())
 
-print(df_bellevue)
 
 def task_2():
-    # First create a column for the year
+    # First create a column for a datetime object so we can filter by year
     df_bellevue['datetime'] = pd.to_datetime(df_bellevue['date_in'])
-    return df_bellevue.groupby(df_bellevue['datetime'].dt.year)['last_name'].count()
+
+    # Add another column for the total admissions for that year. We can count the last_name
+    # because there are no missing elements
+    df_bellevue['total_admissions'] = df_bellevue.groupby(df_bellevue['datetime'].dt.year)['last_name'].transform('count')
+    return df_bellevue.groupby(df_bellevue['datetime'].dt.year)['total_admissions'].count().reset_index()
 
 print(task_2())
