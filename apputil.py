@@ -77,17 +77,16 @@ def task_2():
     """ Returns a dataframe showing the total admissions for each year.
 
     Returns:
-        pandas.Dataframe: a dataframe with columns datetime(grouped by year) 
-        and total_admissions
+        pandas.Dataframe: a dataframe with columns year and total_admissions 
     """
 
-    # First create a column for a datetime object so we can filter by year
-    df_bellevue['datetime'] = pd.to_datetime(df_bellevue['date_in'])
+    # First create a column for the year
+    df_bellevue['year'] = pd.to_datetime(df_bellevue['date_in']).dt.year
 
     # Add another column for the total admissions for that year. We can count the last_name
     # because there are no missing elements
-    df_bellevue['total_admissions'] = df_bellevue.groupby(df_bellevue['datetime'].dt.year)['last_name'].transform('count')
-    return df_bellevue.groupby(df_bellevue['datetime'].dt.year)['total_admissions'].count().reset_index()
+    df_bellevue['total_admissions'] = df_bellevue.groupby('year')['last_name'].transform('count')
+    return df_bellevue.groupby('year')['total_admissions'].count().reset_index()
 
 
 def task_3():
@@ -141,3 +140,5 @@ def fibonacci_memorized(n):
     newValue = fibonacci_memorized(n - 1) + fibonacci_memorized(n - 2)
     fibs[n] = newValue
     return newValue
+
+print(task_2())
