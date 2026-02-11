@@ -13,6 +13,10 @@ def fibonacci(n):
         int: the nth element in the sequence
     """
 
+    # If we get a negative n, we will return -1 to avoid infinite recursion
+    if n < 0:
+        return -1
+
     # The base cases are the first two elements 0, 1
     if n == 0:
         return 0
@@ -108,3 +112,32 @@ def task_4():
     # The value counts are already sorted by occurrences in descending order,
     # we just need the first 5
     return list(df_bellevue['profession'].value_counts()[0:5].index)
+
+
+# A global dictionary to store the elements we have calculated
+fibs = {0: 0, 1: 1}
+
+def fibonacci_memorized(n):
+    """ Finds the nth element in the Fibonacci sequence using data
+    memorization to improve efficiency.
+
+    Args:
+        n (int): the index for the element in the Fibonacci sequence
+
+    Returns:
+        int: the nth element in the sequence
+    """
+    
+    # If we get a negative n, we will return -1 to avoid infinite recursion
+    if n < 0:
+        return -1
+
+    # Our new base case is when n can be found in the dictionary
+    if n in fibs.keys():
+        return fibs[n]
+
+    # Now before returning the newly computed value, we need to update
+    # the dictionary
+    newValue = fibonacci_memorized(n - 1) + fibonacci_memorized(n - 2)
+    fibs[n] = newValue
+    return newValue
