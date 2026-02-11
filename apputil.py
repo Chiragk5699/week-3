@@ -72,6 +72,13 @@ print(df_bellevue['gender'].unique())
 
 
 def task_2():
+    """ Returns a dataframe showing the total admissions for each year.
+
+    Returns:
+        pandas.Dataframe: a dataframe with columns datetime(grouped by year) 
+        and total_admissions
+    """
+
     # First create a column for a datetime object so we can filter by year
     df_bellevue['datetime'] = pd.to_datetime(df_bellevue['date_in'])
 
@@ -80,4 +87,16 @@ def task_2():
     df_bellevue['total_admissions'] = df_bellevue.groupby(df_bellevue['datetime'].dt.year)['last_name'].transform('count')
     return df_bellevue.groupby(df_bellevue['datetime'].dt.year)['total_admissions'].count().reset_index()
 
-print(task_2())
+
+def task_3():
+    """ Returns a series with the average age for each gender.
+
+    Returns:
+        pandas.Series: the average age indexed by gender
+    """
+
+    # I don't know what was meant by 'g' and 'h', so I will include them anyway
+    # to preserve the original data as best as possible
+    return df_bellevue.groupby('gender')['age'].mean().dropna()
+
+print(task_3())
